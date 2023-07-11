@@ -10,7 +10,7 @@ const PORT = 5001
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('public'))
-// app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
@@ -36,14 +36,22 @@ app.get('/', (request, response) => {
      .catch(error => console.error(error))
  })
 
+
 app.post('/quotes', (request, response) => {
-   quotesCollection
-     .insertOne(request.body)
+   quotesCollection.insertOne(request.body)
      .then(result => {
-       console.log('New quotes Added')
+       console.log('Quote Added')
       response.redirect('/')
      })
      .catch(error => console.error(error))
+})
+
+
+app.delete('/deleteQuotes', (request, response) => {
+   quotesCollection.deleteOne({name: request.body.nameS}).then(result => {
+      console.log('Quote Deleted');
+      response.json('Quote Deleted')
+   }).catch(error => console.error(error))
 })
 
    
