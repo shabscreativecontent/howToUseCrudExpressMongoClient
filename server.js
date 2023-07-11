@@ -16,7 +16,7 @@ app.use(express.json())
 
 
 // // Johnexky2332, phAiCEgbAzsFhjfy
-let dbConnectionStr = "mongodb+srv://ShabsCreativeContent01:phAiCEgbAzsFhjfy@cluster0.ehulrnp.mongodb.net/"
+let dbConnectionStr = process.env.DB_STRING
 let db, quotesCollection ;
 
 MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
