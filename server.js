@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
 const PORT = 5001
+require('dotenv').config()
 
 
 
@@ -15,9 +16,10 @@ app.use(express.json())
 
 
 // // Johnexky2332, phAiCEgbAzsFhjfy
+let dbConnectionStr = "mongodb+srv://ShabsCreativeContent01:phAiCEgbAzsFhjfy@cluster0.ehulrnp.mongodb.net/"
 let db, quotesCollection ;
 
-MongoClient.connect("mongodb+srv://ShabsCreativeContent01:phAiCEgbAzsFhjfy@cluster0.ehulrnp.mongodb.net/", { useUnifiedTopology: true })
+MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
 .then(client => {
    console.log("connected to Database");
    db = client.db('star-wars-quotes')
