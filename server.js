@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
-// // Johnexky2332, phAiCEgbAzsFhjfy
+
 let dbConnectionStr = process.env.DB_STRING
 let db, quotesCollection ;
 
@@ -40,12 +40,27 @@ app.get('/', (request, response) => {
 
 
 app.post('/quotes', (request, response) => {
-   quotesCollection.insertOne(request.body)
+   quotesCollection.insertOne({name: request.body.name, quote: request.body.quote, likes: 0})
      .then(result => {
        console.log('Quote Added')
       response.redirect('/')
      })
      .catch(error => console.error(error))
+})
+
+app.put('/updateLikes', (request, response) => {
+   quotesCollection.updateOne({name: request.body.nameS, quote: request.body.quoteS, likes: request.body.likeS},{
+      $set: {
+         likes:request.body.likeS + 1
+      }
+   }, {
+      sort: {_id: -1},
+      upsert: false
+   }).then(result => {
+      console.log(result)
+      console.log("likes Updated")
+      response.json('likes Updated')
+   }).catch(error => console.error(error))
 })
 
 
