@@ -57,7 +57,7 @@ app.put('/updateLikes', (request, response) => {
       sort: {_id: -1},
       upsert: false
    }).then(result => {
-      console.log(result)
+      // console.log(result)
       console.log("likes Updated")
       response.json('likes Updated')
    }).catch(error => console.error(error))
